@@ -66,4 +66,14 @@ public class CuentaService implements ICuentaService {
 
 	}
 
+	@Override
+	public Optional<Cuenta> consultarCuenta(Long idCuenta) throws Exception {
+		try {
+			return cuentaDao.findById(idCuenta);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception("Error");
+		}
+	}
+
 }

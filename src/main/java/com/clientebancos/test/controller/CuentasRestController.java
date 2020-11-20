@@ -52,5 +52,23 @@ public class CuentasRestController {
 		}
 	}
 	
+	@RequestMapping(path = "/cuenta/{id}", method = RequestMethod.GET)
+	public ResponseEntity<RespuestaDTO> cuenta(@PathVariable Long id) {
+		HttpHeaders responseHeaders = new HttpHeaders();
+		responseHeaders.set("Access-Control-Allow-Origin", System.getenv("CORS"));
+		responseHeaders.set("Access-Control-Request-Method", "GET,POST");
+		responseHeaders.set("Access-Control-Allow-Headers", "Content-Type,Authorization");
+		try {
+
+			var cuenta = cuentaService.consultarCuenta(id);
+			if (cuenta.isPresent()) {
+				return ResponseEntity.ok().headers(responseHeaders).body(new RespuestaDTO(Constantes.OK, null, cuenta));
+			} else {
+				return ResponseEntity.ok().headers(responseHeaders).body(new RespuestaDTO(Constantes.OK, null, null));
+			}
+		} catch (Exception e) {
+			return ResponseEntity.ok().headers(responseHeaders).body(new RespuestaDTO(Constantes.ERROR, e.getMessage(), null));
+		}
+	}
 	
 }
