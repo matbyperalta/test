@@ -21,6 +21,8 @@ public class ClienteService implements IClienteService {
 	public void crearCliente(Cliente cliente) throws Exception {
 
 		try {
+			cliente.setNombres(cliente.getNombres().toLowerCase());
+			cliente.setApellidos(cliente.getApellidos().toLowerCase());
 			clienteDao.save(cliente);
 		} catch (Exception e) {
 			e.printStackTrace();
